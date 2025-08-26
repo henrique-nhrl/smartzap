@@ -1,0 +1,16 @@
+.form-group {
+  margin-bottom: 0;
+}
+
+.input-group {
+  flex-wrap: nowrap;
+}
+
+.input-group-append .btn-group .btn {
+  border-radius: 0;
+}
+
+.input-group-append .btn-group .btn.active {
+  background-color: #009bf4; //#0077b3; /* Cor do botão ativo */
+  color: #ffffff;
+}

@@ -1,0 +1,19 @@
+<div class="modal-header">
+  <h5 class="modal-title">Preencha os Campos</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3" *ngFor="let campo of campos">
+      <label class="form-label">{{ campo.Nome }}</label>
+      <div [ngSwitch]="campo.Tipo">
+        <input *ngSwitchCase="'etEdit'" formControlName="{{ campo.Nome }}" class="form-control">
+        <input *ngSwitchCase="'etTimePicker'" formControlName="{{ campo.Nome }}" type="date" class="form-control">
+        <select *ngSwitchCase="'etCombo'" formControlName="{{ campo.Nome }}" class="form-select">
+          <option *ngFor="let item of campo.ItensCombo" [value]="item">{{ item }}</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-primary" type="submit">OK</button>
+  </form>
+</div>

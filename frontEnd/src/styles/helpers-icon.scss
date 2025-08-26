@@ -1,0 +1,19 @@
+.google-icon {
+  height: 24px;
+  width: 24px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.google-icon-semi-small {
+  @extend .google-icon;
+  height: 20px !important;
+  width: 20px !important;
+}
+
+.google-icon-small {
+  @extend .google-icon;
+  height: 16px !important;
+  width: 16px !important;
+}

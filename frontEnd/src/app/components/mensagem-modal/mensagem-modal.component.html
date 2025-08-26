@@ -1,0 +1,67 @@
+<div class="modal fade show d-block" role="dialog" aria-labelledby="currencyModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="currencyModalLabel">{{title}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="handleCancel()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row d-flex">
+            <div class="col-12 col-md-12 form-group">
+              <label for="mensagem" class="form-label">Mensagem</label>
+              <textarea
+                class="form-control custom-textarea"
+                id="mensagem"
+                rows="15"
+                [(ngModel)]="textValue"
+                name="mensagem"
+                [disabled]="disabledtextValue"
+              ></textarea>
+            </div>
+          </div>
+          <div class="row d-flex">
+            <app-date-picker
+              class="col-sm-12 col-md-6 form-group"
+              [(dateModel)]="dtAgendValue"
+              [label]="'Data agendamento'"
+              [inputName]="'dataAgendamentoM'"
+              [isDisabled]="disableddtAgendValue"
+            ></app-date-picker>
+            <app-time-picker
+              class="col-sm-12 col-md-6 form-group"
+              [(dateModel)]="hrAgendValue"
+              [label]="'Hora agendamento'"
+              [inputName]="'horaAgendamentoM'"
+              [isDisabled]="disabledhrAgendValue"
+            ></app-time-picker>
+          </div>
+          <div class="form-group">
+            <label for="currencyInput">Valor</label>
+            <input
+              id="currencyInput"
+              type="text"
+              [(ngModel)]="currencyValue"
+              mask="separator.2"
+              thousandSeparator="."
+              decimalMarker=","
+              prefix="R$ "
+              name="currencyInput"
+              class="form-control"
+              [disabled]="disabledCurrencyValue"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <p class="mb-0">
+          <span class="font-weight-bold">Confirma?</span>
+        </p>
+        <button type="button" class="btn btn-secondary" (click)="handleCancel()">Não</button>
+        <button type="button" class="btn btn-primary" (click)="handleUpdate()">Sim</button>
+      </div>
+    </div>
+  </div>
+</div>

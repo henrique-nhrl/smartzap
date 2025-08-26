@@ -1,0 +1,25 @@
+<!-- Adicione este elemento no seu template HTML -->
+<div id="datetimepicker">
+
+<div class="form-group">
+  <label [for]="inputName + 'Input'">{{ label }}</label>
+  <div class="input-group date"
+    [id]="inputName"
+    data-td-target-input="nearest"
+    data-td-target-toggle="nearest">
+
+    <input
+      [id]="inputName + 'Input'"
+      type="text"
+      class="form-control"
+      [attr.data-td-target]="'#' + inputName"
+      [disabled]="isDisabled"/>
+    <span
+      class="input-group-text"
+      [attr.data-td-target]="'#' + inputName"
+      data-td-toggle="datetimepicker">
+      <i class="bi bi-calendar"></i>
+    </span>
+  </div>
+</div>
+</div>

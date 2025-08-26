@@ -1,0 +1,175 @@
+<div
+  class="modal fade show d-block"
+  role="dialog"
+  aria-labelledby="currencyModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="currencyModalLabel">
+          Cadastrar Novo Usuário
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="handleCancel()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row d-flex">
+            <div class="col-12 col-md-6 form-group">
+              <label for="nome" class="form-label">Sua Empresa</label>
+              <input
+                class="form-control"
+                id="nome"
+                type="text"
+                [(ngModel)]="cliente.nome"
+                name="nome"
+                placeholder="Informe a sua Empresa"
+              />
+            </div>
+            <div class="col-12 col-md-6 form-group">
+              <label for="responsavel" class="form-label">Seu Nome</label>
+              <input
+                class="form-control"
+                id="responsavel"
+                type="text"
+                [(ngModel)]="cliente.responsavel"
+                name="responsavel"
+                placeholder="Informe o seu Nome"
+              />
+            </div>
+          </div>
+          <div class="row d-flex">
+            <div class="col-12 col-md-6 form-group">
+              <label for="telefone" class="form-label"
+                >Telefone com WhatsApp</label
+              >
+              <input
+                class="form-control"
+                id="telefone"
+                type="text"
+                [(ngModel)]="cliente.telefone"
+                name="telefone"
+                placeholder="Telefone com Whats APP"
+                maxlength="15"
+                mask="(00) 0000-0000|| (00) 00000-0000"
+              />
+            </div>
+            <div class="col-12 col-md-6 form-group">
+              <label for="email" class="form-label">E-mail</label>
+              <input
+                class="form-control"
+                id="email"
+                type="text"
+                [(ngModel)]="cliente.email"
+                name="email"
+                placeholder="Informe o seu E-mail"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+          <div class="row d-flex">
+            <div class="col-12 col-md-12 form-group position-relative">
+              <label for="selectArea">Selecione o seu Segmento</label>
+              <select
+                class="form-select"
+                id="selectArea"
+                [(ngModel)]="cliente.idarea"
+                name="selectArea"
+              >
+                <option
+                  *ngFor="let area of areas; let i = index"
+                  [value]="area.id"
+                >
+                  {{ area.nome }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="row d-flex">
+            <div class="col-12 col-md-6 form-group">
+              <label for="senha" class="form-label">Senha</label>
+              <input
+                class="form-control"
+                id="senha"
+                type="password"
+                [(ngModel)]="cliente.senha"
+                name="senha"
+                placeholder="6 ou mais caracteres"
+                autocomplete="new-password"
+              />
+            </div>
+            <div class="col-12 col-md-6 form-group">
+              <label for="confirmarSenha" class="form-label"
+                >Confirmar Senha</label
+              >
+              <input
+                class="form-control"
+                id="confirmarSenha"
+                type="password"
+                [(ngModel)]="confirmarSenha"
+                name="confirmarSenha"
+                placeholder="6 ou mais caracteres"
+                autocomplete="new-password"
+              />
+            </div>
+          </div>
+          <div class="row d-flex">
+            <div class="col-12 col-md-12 form-group">
+              <!-- <label for="telefone" class="form-label">Telefone</label> -->
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="cupom"
+                  id="cupom"
+                  [(ngModel)]="cupom.nome"
+                  placeholder="Informe o cupom"
+                  [disabled]="cliente.idCupom > 0"
+                />
+                <!-- Botão com ícone de soma e margem -->
+                <div class="input-group-append">
+                  <button
+                    type="button"
+                    class="btn btn-primary rounded btn-margin-left-add"
+                    (click)="aplicarOuRemoverCupom()"
+
+                  >
+                    {{cliente.idCupom > 0 ? "Remover Cupom" : "Aplicar Cupom"}}
+                  </button>
+                  <!-- <button
+                    type="button"
+                    class="btn btn-primary rounded"
+                    ngbTooltip="Cancelar e limpar campos"
+                    (click)="limpaFechaDadosContato()"
+                  >
+                    <i class="bi bi-x-lg"></i>
+                  </button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="handleCancel()"
+        >
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-primary" (click)="handleUpdate()">
+          Cadastrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

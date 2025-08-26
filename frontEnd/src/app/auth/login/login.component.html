@@ -1,0 +1,87 @@
+<div class="login-container d-flex justify-content-center align-items-center">
+  <div class="login-box p-4">
+    <!-- <h2 class="text-center text-title">LOGIN</h2> -->
+    <img
+      src="../../../assets/img/logo-azul-transparente.png"
+      class="login-image"
+    />
+    <form role="form" (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <div class="mb-3">
+        <label for="email" class="form-label text-light">Email</label>
+        <div class="input-group">
+          <div class="input-group-append">
+            <button [disabled]="true" type="button" class="btn btn-primary">
+              <i class="bi bi-person-fill" aria-hidden="true"></i>
+            </button>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            id="email"
+            placeholder="Email"
+            [(ngModel)]="login.email"
+            name="email"
+          />
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="senha" class="form-label text-light">Senha</label>
+        <div class="input-group">
+          <div class="input-group-append">
+            <button [disabled]="true" type="button" class="btn btn-primary">
+              <i class="bi bi-lock-fill" aria-hidden="true"></i>
+            </button>
+          </div>
+          <input
+            type="password"
+            class="form-control"
+            id="senha"
+            placeholder="Senha"
+            [(ngModel)]="login.senha"
+            name="senha"
+          />
+        </div>
+      </div>
+      <button
+        type="submit"
+        class="btn btn-primary w-100"
+        [disabled]="isProcessando"
+      >
+        <span
+          *ngIf="isProcessando"
+          class="spinner-border spinner-border-sm me-2"
+          role="status"
+          aria-hidden="true"
+        ></span>
+        {{ isProcessando ? (isProcessandoNewUser ? 'AGUARDE ' + formatarTempo(tempoRestante) + ' Restantes' : 'AGUARDE') : 'LOGIN' }}
+      </button>
+
+      <!-- Botão de Login com Google -->
+      <!-- <div class="btn-wrapper w-100 mt-2">
+        <app-google-button
+          (tokenAtualizado)="onGoogleClick($event)"
+          [loading]="isProcessando"
+          text="Entrar com Google"
+          classes="btn btn-neutral btn-icon btn-google btn-red btn-border-radius w-100"></app-google-button>
+      </div> -->
+      <div class="text-center">
+        <a
+          (click)="esqueceuSenha()"
+          style="font-weight: 600; font-size: 12px"
+          class="hover-black"
+        >
+          Esqueceu sua senha?
+        </a>
+      </div>
+      <div class="text-center">
+        <a
+          (click)="cadastrarUsuario()"
+          style="font-weight: 600; font-size: 12px"
+          class="hover-black"
+        >
+          Ainda não tem cadastro? Inscreva-se agora!
+        </a>
+      </div>
+    </form>
+  </div>
+</div>

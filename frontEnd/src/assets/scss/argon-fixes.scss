@@ -1,0 +1,28 @@
+.nav-item {
+  line-height: 2.5;
+}
+
+.input-group {
+  .form-control {
+    padding-left: 12px !important;
+  }
+}
+
+.input-group-append {
+  .btn {
+    z-index: 1049;
+  }
+}
+
+.erros-formulario > * {
+  color: red;
+  font-size: 14px;
+}
+
+.ngb-dp-weekday {
+  color: black !important;
+}
+
+ngb-datepicker > div.ngb-dp-months > div > ngb-datepicker-month-view > div > div > div {
+  color: black;
+}

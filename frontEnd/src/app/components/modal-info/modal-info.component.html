@@ -1,0 +1,12 @@
+<div class="modal-header" (window:keydown)="onKeyDown($event)">
+  <h4 class="modal-title">{{ titulo }}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="onFechar('fechar')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p class="angular-with-newlines">{{ texto }}</p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-link" (click)="onFechar('sim')">{{textoBotao}}</button>
+</div>

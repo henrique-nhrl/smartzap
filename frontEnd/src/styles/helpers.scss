@@ -1,0 +1,135 @@
+@import '../assets/scss/argon';
+@import '../assets/scss/argon-fixes.scss';
+@import '../assets/scss/argon-backgrounds.scss';
+@import '../assets/scss/argons-mixins-import';
+@import './variables';
+
+.d-flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.d-flex-column-centered {
+  @extend .d-flex-column;
+  justify-content: center;
+  align-items: center;
+}
+
+.d-card-icon {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding-right: 0 !important;
+}
+
+.d-flex-column-end {
+  @extend .d-flex-column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.d-flex-row-centered {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  //align-items: center;
+  justify-content: center;
+}
+
+.d-flex-row-centered-both {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.d-flex-row-end {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: flex-end;
+}
+
+.d-flex-row-start {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.btn-no-hover:hover {
+  box-shadow: unset !important;
+  transform: unset !important;
+}
+
+.mnf-container {
+  @extend .d-flex-column-centered;
+  min-height: 85vh;
+  @include make-container();
+}
+
+.mnf-container-stretch {
+  @extend .mnf-container;
+  align-items: stretch !important;
+}
+
+.mnf-container-start {
+  @extend .mnf-container;
+  justify-content: flex-start !important;
+}
+
+.mnf-container-start-start {
+  @extend .mnf-container-start;
+  align-items: flex-start;
+
+  @include media-breakpoint-only(md) {
+    display: block !important;
+    padding: 42px !important;
+  }
+}
+
+.full-height {
+  min-height: 100%;
+}
+
+.no-background {
+  background: transparent !important;
+}
+
+.full-height-mobile {
+  @include media-breakpoint-down(md) {
+    height: 100%;
+  }
+}
+
+.vertical-centered-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.horizontal-centered-row {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.horizontal-centered-row-mobile {
+  @extend .horizontal-centered-row;
+  justify-content: center !important;
+}
+
+.fixed-button-bottom {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+.no-padding-right-mobile {
+  @include media-breakpoint-down(md) {
+    padding-right: 0 !important;
+  }
+}

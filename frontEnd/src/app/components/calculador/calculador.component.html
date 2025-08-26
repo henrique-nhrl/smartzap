@@ -1,0 +1,18 @@
+<div class="form-group">
+  <label for="calculo">Calcular</label>
+  <div class="input-group">
+    <select class="form-control" id="calculo" [(ngModel)]="calculoValor" (change)="onValorChange($event)">
+      <option *ngFor="let valor of valores" [value]="valor">{{ valor }}</option>
+    </select>
+    <div class="input-group-append">
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-outline-secondary" [class.active]="calculoUnidade === 'meses'">
+          <input type="radio" name="calculoUnidade" value="meses" [(ngModel)]="calculoUnidade" (change)="onUnidadeChange('meses')"> Meses
+        </label>
+        <label class="btn btn-outline-secondary" [class.active]="calculoUnidade === 'dias'">
+          <input type="radio" name="calculoUnidade" value="dias" [(ngModel)]="calculoUnidade" (change)="onUnidadeChange('dias')"> Dias
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

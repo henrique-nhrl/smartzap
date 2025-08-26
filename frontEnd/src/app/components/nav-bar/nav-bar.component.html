@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="../../../assets/img/logoz-branco.png" alt="Logo" style="height: 70px;">
+    </a>
+    <button class="navbar-toggler" type="button" (click)="toggleNavbar()" [attr.aria-expanded]="navbarOpen">
+      <span [class]="navbarOpen ? 'navbar-close-icon' : 'navbar-toggler-icon'"></span>
+    </button>
+    <div class="collapse navbar-collapse" [class.show]="navbarOpen">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item" *ngIf="navbarOpen">
+          <a class="nav-link" (click)="onCloseNavbar()"><i class="bi bi-upload"></i></a>
+        </li>
+        <li class="nav-item">
+          <a [ngClass]="getClass()" (click)="false"><i class="bi bi-building"></i> {{ empresa }}</a>
+        </li>
+        <li class="nav-item">
+          <a [ngClass]="getClass()" (click)="false"><i class="bi bi-person"></i> {{usuario}}</a>
+        </li>
+        <li class="nav-item">
+          <a [ngClass]="getClass()" (click)="onLogout()"><i class="bi bi-arrow-right-square"></i> Sair</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

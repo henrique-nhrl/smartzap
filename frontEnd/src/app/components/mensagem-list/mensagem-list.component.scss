@@ -1,0 +1,118 @@
+@import "../../../assets/scss/argons-mixins-import";
+.responsive-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center; /* Alinha itens centralizados verticalmente */
+}
+
+.input-container {
+  flex: 1 1 100%;
+  margin-bottom: 0.5rem; /* Ajuste conforme necessário */
+}
+
+.select-container {
+  flex: 1 1 100%;
+}
+
+@media (min-width: 768px) {
+  .input-container {
+    flex: 1 1 60%;
+    margin-bottom: 0; /* Remove a margem inferior em telas maiores */
+    padding-right: 1rem;
+  }
+
+  .select-container {
+    flex: 1 1 40%;
+  }
+}
+
+/* Alinhamento adicional para corrigir diferenças de altura */
+.custom-select,
+nz-input-group input[nz-input] {
+  height: calc(2.875rem + 2px); /* Ajuste para igualar a altura dos elementos */
+  line-height: normal;
+  vertical-align: middle;
+}
+
+.container-fluid {
+  width: 100%;
+  padding: 0;
+}
+
+.modal-body {
+  width: 100%;
+}
+
+.custom-scrollbar {
+  width: 100%;
+}
+
+.card-body > .row {
+  @include media-breakpoint-down(lg) {
+    margin: 0 !important;
+    padding: 12px;
+  }
+}
+
+.venda-list-container {
+  padding-right: 12px;
+  padding-left: 12px;
+}
+
+.venda-list-item {
+  @include media-breakpoint-up(md) {
+    width: 100%;
+  }
+}
+
+.selected-item {
+  background-color: #f0f0ff;
+  box-shadow: 0 0 5px #0f70a8;
+}
+.mensagem-status {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.aguardando-envio {
+  color:#007CD6;
+}
+
+.enviada {
+  color: #00BA94;
+}
+
+.envio-cancelado-usuario {
+  color: #500fe2;
+}
+
+.envio-cancelado-administrador {
+  color:#91A004;
+}
+
+.modal-lg .hidden-modal {
+  visibility: hidden;
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+
+.pagination .page-link:focus,
+.pagination .page-link:active {
+  color: white; /* Cor do texto quando focado ou ativo */
+  background-color: #007bff; /* Cor de fundo quando focado ou ativo */
+  border-color: #007bff; /* Cor da borda quando focado ou ativo */
+  outline: none; /* Remove o contorno padrão */
+}
+
+.pagination .page-link {
+  color: #007bff; /* Cor padrão do texto */
+}
+
+.pagination .page-item.active .page-link {
+  color: white; /* Cor do texto na página ativa */
+  background-color: #007bff; /* Cor de fundo da página ativa */
+  border-color: #007bff; /* Cor da borda da página ativa */
+}
+

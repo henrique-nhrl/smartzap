@@ -1,0 +1,315 @@
+<app-nav-bar
+  [empresa]="usuario.empresanome"
+  [usuario]="usuario.nome"
+></app-nav-bar>
+<div class="container-fluid my-container shadow-lg p-4">
+  <form (submit)="enviar()">
+    <ul ngbNav #nav="ngbNav" class="nav nav-tabs">
+      <li [ngbNavItem]="1">
+        <a ngbNavLink>Agendar</a>
+        <ng-template ngbNavContent>
+          <div class="form-group">
+            <ng-container>
+              <label for="nameNumber">Contato</label>
+              <div class="input-group">
+                <input
+                  #contato="ngModel"
+                  (selectItem)="onSelectPersonFinder($event)"
+                  [(ngModel)]="contatoStr"
+                  [editable]="true"
+                  [ngbTypeahead]="searchContato"
+                  [resultFormatter]="formatterContato"
+                  name="nameNumber"
+                  id="nameNumber"
+                  type="text"
+                  class="form-control"
+                  placeholder="Digite o Nome ou Telefone"
+                />
+                <div class="input-group-append">
+                  <button
+                    [disabled]="!isContatoSelected()"
+                    type="button"
+                    ngbTooltip="Excluir Contato"
+                    (click)="excluirContato()"
+                    class="btn btn-danger rounded btn-margin-left-add btn-margin-right-add"
+                  >
+                    <i class="bi bi-trash" aria-hidden="true"></i>
+                  </button>
+                  <button
+                    [disabled]="!isContatoSelected()"
+                    type="button"
+                    class="btn btn-primary rounded btn-margin-right-add"
+                    ngbTooltip="Atualizar Contato"
+                    (click)="editarContato()"
+                  >
+                    <i class="bi bi-pencil" aria-hidden="true"></i>
+                  </button>
+                  <button
+                    type="button"
+                    ngbTooltip="Adicionar Novo Contato"
+                    (click)="adicionarNovoContato()"
+                    class="btn btn-primary rounded btn-margin-left-add"
+                  >
+                    <i class="bi bi-plus-lg" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+
+          <div>
+            <div *ngIf="exibirDadosContato" class="row align-items-center">
+              <!-- Coluna para o primeiro input com largura 8 -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="novoContato" class="form-label">Nome</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="novoContato"
+                    id="novoContato"
+                    novoContato
+                    #novoContato="ngModel"
+                    [(ngModel)]="mensagem.contato"
+                  />
+                </div>
+              </div>
+              <!-- Coluna para o grupo de inputs e o botão com largura 4 -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="telefone" class="form-label">Telefone</label>
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="telefone"
+                      id="telefone"
+                      maxlength="15"
+                      telefone
+                      #telefone="ngModel"
+                      [(ngModel)]="mensagem.numDestino"
+                      [specialCharacters]="['(', ')', ' ', '-']"
+                      mask="(00) 00000-0000"
+                    />
+                    <!-- Botão com ícone de soma e margem -->
+                    <div class="input-group-append">
+                      <button
+                        type="button"
+                        class="btn btn-success rounded btn-margin-left-add btn-margin-right-add"
+                        ngbTooltip="Adicionar Contato"
+                        (click)="adicionarContato()"
+                      >
+                        <i class="bi bi-check-lg"></i>
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-primary rounded"
+                        ngbTooltip="Cancelar e limpar campos"
+                        (click)="limpaFechaDadosContato()"
+                      >
+                        <i class="bi bi-x-lg"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- </ng-accordion> -->
+            <div class="row d-flex">
+              <div class="col-12 col-md-12 form-group position-relative">
+                <label for="tituloModelo">Modelo</label>
+                <select
+                  class="form-select"
+                  id="tituloModelo"
+                  [(ngModel)]="mensagem.modelo"
+                  name="selectModelo"
+                  #modeloElement
+                  [disabled]="!isContatoSelected()"
+                  (ngModelChange)="
+                    onModeloChange($event, modeloElement.selectedIndex)
+                  "
+                >
+                  <option
+                    *ngFor="let modelo of modelos; let i = index"
+                    [value]="modelo.titulo"
+                  >
+                    {{ modelo.titulo }}
+                  </option>
+                </select>
+                  <div
+                    *ngIf="!isContatoSelected()"
+                    class="overlay"
+                    (click)="infoModelo()"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: pointer;">
+                  </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3"></div>
+              <div class="col-md-3"></div>
+              <div class="col-md-3 d-flex align-items-end justify-content-end">
+                <label
+                  for="valorOportunidade"
+                  class="form-group"
+                  style="font-weight: bold"
+                  >Valor da Oportunidade</label
+                >
+              </div>
+              <div class="col-md-3">
+                <div class="input-group">
+                  <div class="input-group-prepend"></div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="oportunidade"
+                    id="oportunidade"
+                    maxlength="15"
+                    oportunidade
+                    #oportunidade="ngModel"
+                    [(ngModel)]="mensagem.vrOportunidade"
+                    [allowNegativeNumbers]="false"
+                    mask="separator.2"
+                    [leadZero]="true"
+                    prefix="R$ "
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row d-flex">
+              <div class="col-12 col-md-12 form-group">
+                <label for="mensagem" class="form-label">Mensagem</label>
+                <textarea
+                  class="form-control custom-textarea"
+                  id="mensagem"
+                  rows="15"
+                  [(ngModel)]="mensagem.mensagem"
+                  name="mensagem"
+                  required
+                ></textarea>
+              </div>
+            </div>
+
+            <!-- Linha para os componentes de agendamento e calculador -->
+            <div class="row d-flex align-items-center">
+              <div class="col-sm-12 col-md-3 mt-3 form-group">
+                <app-date-picker
+                  *ngIf="informarData"
+                  class="w-100"
+                  [(dateModel)]="mensagem.dtAgend"
+                  [label]="'Data'"
+                  [inputName]="'dataAgendamento'"
+                  [isDisabled]="!informarData"
+                ></app-date-picker>
+              </div>
+              <div class="col-sm-12 col-md-3 mt-3 form-group">
+                <app-time-picker
+                  *ngIf="informarData"
+                  class="w-100"
+                  [(dateModel)]="mensagem.hrAgend"
+                  [label]="'Hora'"
+                  [inputName]="'horaAgendamento'"
+                  [isDisabled]="!informarData"
+                ></app-time-picker>
+              </div>
+              <div class="col-sm-12 col-md-6 form-group">
+                <app-calculador
+                  *ngIf="informarData"
+                  (valorChange)="onCalculadorValorChange($event)"
+                ></app-calculador>
+              </div>
+            </div>
+
+            <!-- Linha para o checkbox "Agendamento" e o botão "AGENDAR/ENVIAR" -->
+            <div class="row d-flex align-items-center">
+              <div class="col-sm-12 col-md-6 form-group d-flex align-items-center">
+                <input
+                  id="checkinformarData"
+                  name="checkinformarData"
+                  type="checkbox"
+                  class="form-check-input check-left"
+                  [(ngModel)]="informarData"
+                  (ngModelChange)="onInformarData()"
+                  #infData="ngModel"
+                />
+                <label for="checkinformarData" class="check-left-label">
+                  Agendamento <i class="bi bi-calendar-date"></i>
+                </label>
+              </div>
+
+              <div class="col-sm-12 col-md-6 form-group d-flex justify-content-end">
+                <button
+                  [disabled]="isLoading"
+                  type="button"
+                  class="btn btn-primary w-100"
+                  (click)="limpaMensagem()"
+                >
+                  DESISTIR
+                </button>
+                <button
+                  [disabled]="isLoading"
+                  type="submit"
+                  class="btn btn-primary w-100"
+                >
+                  {{ informarData ? "AGENDAR ENVIO" : "ENVIAR AGORA" }}
+
+                </button>
+              </div>
+            </div>
+
+            <div class="modal-footer mt-2 p-2">
+              <div class="row w-100">
+                <!-- <div class="col-6">
+                  <div class="form-group text-center">
+                    <p class="mb-0" style="font-weight: bold">Número</p>
+                    <p
+                      class="mb-0"
+                      style="font-size: 1, 2rem; font-weight: bold"
+                    >
+                      {{
+                        usuario.numtel
+                          | mask : "(00) 000000000||+00 (00) 000000000"
+                      }}
+                    </p>
+                  </div>
+                </div> -->
+                <div class="col-12 text-center">
+                  <div *ngIf="conectado" class="form-group">
+                    <p class="mb-0" style="font-weight: bold">Conectado</p>
+                    <p
+                      class="mb-0"
+                      style="font-size: 1.2rem; font-weight: bold"
+                    >
+                      <i class="bi bi-telephone-fill"></i>
+                    </p>
+                  </div>
+                  <div *ngIf="!conectado" class="form-group" (click)="openQrCodeModal()" style="cursor: pointer;">
+                    <p class="mb-0" style="font-weight: bold">Desconectado</p>
+                    <p class="mb-0" style="font-size: 0.8rem">Clique aqui para conectar o telefone</p>
+                    <p
+                      class="mb-0"
+                      style="font-size: 1.2rem; font-weight: bold"
+                    >
+                      <i class="bi bi-telephone"></i>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2">
+        <a ngbNavLink>Consultar</a>
+        <ng-template ngbNavContent>
+          <div class="row">
+            <div class="col-12">
+              <app-mensagem-list [usuario]="usuario"></app-mensagem-list>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+  </form>
+</div>

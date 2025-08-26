@@ -1,0 +1,38 @@
+.login-container {
+  height: 100vh;
+  background-image: linear-gradient(to right, #009bf4, #00d0f5);
+  //background-color: #009bf4; /* Cor de fundo principal (escura) */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-box {
+  background-color: #ffffff; /* Cor de fundo do box */
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+}
+
+.text-light {
+  color: #ffffff; /* Cor do texto */
+}
+
+.form-control {
+  background-color: #3a3a3a; /* Cor de fundo dos inputs */
+  border: none;
+  color: #ffffff;
+}
+
+.form-control::placeholder {
+  color: #b0b0b0; /* Cor do placeholder */
+}
+
+.login-image {
+  display: block;
+  margin: 0 auto 0px; /* Centraliza a imagem e adiciona margem inferior */
+  max-width: 60%; /* Ajusta o tamanho da imagem para não ultrapassar o box */
+  height: auto; /* Mantém a proporção da imagem */
+}

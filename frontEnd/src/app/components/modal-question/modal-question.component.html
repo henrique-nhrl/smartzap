@@ -1,0 +1,36 @@
+<div class="modal-header"  (window:keydown)="onKeyDown($event)">
+  <h4 class="modal-title">{{ titulo }}</h4>
+  <button
+    type="button"
+    *ngIf="!hideClose"
+    class="close"
+    aria-label="Close"
+    (click)="onFechar('fechar')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p [innerHTML]="texto"></p>
+</div>
+<!-- <div class="modal-footer">
+  <button type="button" class="btn btn-link" (click)="onFechar('nao')">
+    Não
+  </button>
+  <button type="button" class="btn btn-success" (click)="onFechar('sim')">
+    Sim
+  </button>
+</div> -->
+<div class="modal-footer">
+  <div class="form-check form-switch mr-auto" *ngIf="showCheckbox">
+    <input class="form-check-input" type="checkbox" role="switch" id="questionCheckbox" [(ngModel)]="valorCheckbox">
+    <label class="form-check-label" for="questionCheckbox">{{textoCheckbox}}</label>
+  </div>
+  <button type="button" class="btn btn-link" id="btn-nao" (click)="onFechar('nao')" [ngClass]="{'btn-success': naoSelecionado, 'btn-link': !naoSelecionado}">
+    Não
+  </button>
+  <button type="button" class="btn btn-success" id="btn-sim" (click)="onFechar('sim')" [ngClass]="{'btn-success': simSelecionado, 'btn-link': !simSelecionado}">
+    Sim
+  </button>
+</div>
+

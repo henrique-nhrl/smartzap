@@ -1,0 +1,67 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+.custom-nav-link {
+  color: #009bf4 !important; /* Ajuste a cor conforme necessário */
+}
+
+.navbar-toggler {
+  position: relative;
+  z-index: 1050; /* Um valor alto para garantir que esteja acima dos outros elementos */
+}
+
+// .navbar-collapse {
+//   position: absolute;
+//   top: 100%; /* Ajusta para que comece logo após a navbar */
+//   width: 100%; /* Ocupa toda a largura do container */
+//   left: 0;
+//   background-color: #fff; /* Adicione uma cor de fundo se necessário */
+//   z-index: 1000; /* Garante que esteja sobre outros conteúdos */
+// }
+
+
+// .navbar-toggler {
+//   border: none;
+// }
+
+// .navbar-toggler-icon,
+// .navbar-close-icon {
+//   display: inline-block;
+//   width: 30px;
+//   height: 2px;
+//   background-color: #000;
+//   position: relative;
+// }
+
+// .navbar-toggler-icon::before,
+// .navbar-toggler-icon::after,
+// .navbar-close-icon::before,
+// .navbar-close-icon::after {
+//   content: '';
+//   position: absolute;
+//   width: 100%;
+//   height: 100%;
+//   background-color: #000;
+//   transition: transform 0.25s ease;
+// }
+
+// .navbar-toggler-icon::before {
+//   transform: translateY(-10px);
+// }
+
+// .navbar-toggler-icon::after {
+//   transform: translateY(10px);
+// }
+
+// .navbar-close-icon::before,
+// .navbar-close-icon::after {
+//   top: 0;
+//   transform-origin: center;
+// }
+
+// .navbar-close-icon::before {
+//   transform: rotate(45deg);
+// }
+
+// .navbar-close-icon::after {
+//   transform: rotate(-45deg);
+// }

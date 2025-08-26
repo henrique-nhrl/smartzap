@@ -1,0 +1,218 @@
+<!-- <h3 class="mt-4">Pesquisar mensagem</h3> -->
+<div class="responsive-container mt-2 w-100">
+  <div class="input-container">
+    <!-- <nz-input-group [nzSize]="'large'"> -->
+      <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Pesquisar"
+        appDebounce
+        (debounceFunc)="onSearchUpdated()"
+        (keydown.enter)="preventSubmit($event)"
+        id="pesquisar"
+        [(ngModel)]="textoFiltro"
+      />
+      <div class="input-group-append">
+        <button
+          type="button"
+          class="btn btn-primary"
+          style="cursor: pointer"
+          (click)="onConsultaMensagem()"
+          [disabled]="consultandoMensagem"
+        >
+          <i
+            *ngIf="consultandoMensagem"
+            class="fa fa-spinner fa-pulse fa-fw"
+          ></i>
+          <i
+            *ngIf="!consultandoMensagem"
+            class="bi bi-search"
+            aria-hidden="true"
+          ></i>
+        </button>
+      </div>
+      </div>
+    <!-- </nz-input-group> -->
+  </div>
+  <div class="select-container">
+    <select
+      class="custom-select bg-white"
+      name="tiposVenda"
+      [value]="FiltroMensagem.NotSend"
+      [(ngModel)]="filtroMensagem"
+      (change)="filterByType()"
+    >
+      <option *ngFor="let status of lstStatusMensagem" [value]="status.value">
+        {{ status.name }}
+      </option>
+    </select>
+  </div>
+</div>
+<div class="modal-body w-100">
+  <div
+    class="custom-scrollbar w-100"
+    style="height: 60vh; overflow-y: auto; overflow-x: hidden"
+  >
+    <div class="row d-flex mt-2 mb-2" *ngIf="totalMensagens > 0" style="justify-content: center">
+      <div class="col-12">
+        <div class="card shadow">
+          <div class="card-body">
+            <nz-list
+              [nzDataSource]="mensagens"
+              [nzItemLayout]="'horizontal'"
+              [nzRenderItem]="item"
+              [nzLoadMore]="loadMore"
+              [nzLoading]="loadingMore"
+            >
+              <ng-template #loadMore>
+                <!--  <div class="row"> -->
+                <!-- <div *ngIf="totalVendas > 10 && !loadingMore && hasMore && !isLoadAll"  class="loadmore col"
+              >
+                <button nz-button nzBlock nzType="primary" (click)="onLoadMore()" >
+                  Mostrar mais
+                </button>
+              </div> -->
+                <!-- <div *ngIf=" totalVendas > 10 && !loadingMore && hasMore && !isLoadAll " class="loadmore col">
+                <button nz-button nzBlock nzType="primary" (click)="loadAll()" >
+                  Ver tudo
+                </button>
+              </div> -->
+                <!-- <div *ngIf=" totalVendas === vendas.length && totalVendas > 10 && !loadingMore " class="loadmore col" >
+                <button  nz-button nzBlock nzType="primary" (click)="loadLess()" >
+                  Ver menos
+                </button>
+              </div> -->
+                <!-- </div> -->
+              </ng-template>
+
+              <ng-template #item let-item>
+                <nz-list-item [nzActions]="[moreAction]">
+                  <ng-template #moreAction>
+                    <button
+                      nz-button
+                      nz-dropdown
+                      [nzDropdownMenu]="menu"
+                      [nzPlacement]="'bottomLeft'"
+                      [nzType]="'primary'"
+                      nzShape="circle"
+                      (click)="preventClickSubmit($event)"
+                    >
+                      <i nz-icon nzType="ellipsis" class="custom-icon-background" theme="outline"></i>
+                    </button>
+                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                      <ul *ngIf="item.idstatus === 1" nz-menu>
+                        <li (click)="cancelMessage(item)" nz-menu-item>
+                          <a> Cancelar mensagem</a>
+                       </li>
+                      </ul>
+                      <ul *ngIf="item.idstatus !== 1" nz-menu>
+                        <li (click)="UpdateVrOportunidade(item)" nz-menu-item>
+                          <a> Alterar/Visualizar Mensagem</a>
+                       </li>
+                      </ul>
+                      <ul *ngIf="item.idstatus === 1" nz-menu>
+                        <li (click)="UpdateMensagem(item)" nz-menu-item>
+                          <a> Alterar / Visualizar Mensagem</a>
+                       </li>
+                      </ul>
+                    </nz-dropdown-menu>
+                  </ng-template>
+                  <nz-list-item-meta
+                    [nzTitle]="nzTitle"
+                    [nzAvatar]="nzAvatar"
+                    [nzDescription]="nzDescription"
+                  >
+                    <ng-template #nzDescription>
+                      <span> Agendamento {{ item.dtagend | date :"dd/MM/yyyy"}} - {{item.hragend | timeMask}} </span>
+                    </ng-template>
+                    <ng-template #nzAvatar>
+                      <nz-avatar
+                        (click)="onRowClick(item)"
+                        [ngClass]="getIconBackground(item)"
+                        nzSize="large"
+                        [nzIcon]="getIconPyramid(item)"
+                      ></nz-avatar>
+                    </ng-template>
+                    <ng-template #nzTitle>
+                      <div>
+                        <a (click)="onRowClick(item)"
+                          style="font-weight: 600; font-size: 18px"
+                          >{{ item.contato }}</a
+                        >
+                        <!-- <span class="text-muted">
+                          valor {{ item.vroportunidade | currency : "R$ " }}
+                        </span> -->
+                        <div class="text-muted">
+                          <span [ngClass]="getClass(item.idstatus)">{{
+                            item.status
+                          }}</span>
+
+                        </div>
+                        <span class="text-muted">
+                          Telefone
+                          {{ item.numdestino | mask : "(00) 000000000||+00 (00) 000000000" }}
+                            Valor {{ item.vroportunidade | currency : "R$ " }}
+                        </span>
+                      </div>
+                    </ng-template>
+                  </nz-list-item-meta>
+                </nz-list-item>
+              </ng-template>
+            </nz-list>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center">
+  <ul class="pagination">
+    <!-- Mover para a primeira página -->
+    <li class="page-item" [class.disabled]="currentPage === 1">
+      <a class="page-link" (click)="goToPage(1)"><i class="bi bi-chevron-double-left"></i></a>
+    </li>
+
+    <!-- Previous -->
+    <li class="page-item" [class.disabled]="currentPage === 1">
+      <a class="page-link" (click)="goToPage(currentPage - 1)"><i class="bi bi-chevron-left"></i></a>
+    </li>
+
+    <!-- Páginas -->
+    <li class="page-item" *ngFor="let page of getPagesArray()" [class.active]="currentPage === page">
+      <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+    </li>
+
+    <!-- Next -->
+    <li class="page-item" [class.disabled]="currentPage === totalPages">
+      <a class="page-link" (click)="goToPage(currentPage + 1)"><i class="bi bi-chevron-right"></i></a>
+    </li>
+
+    <!-- Mover para a última página -->
+    <li class="page-item" [class.disabled]="currentPage === totalPages">
+      <a class="page-link" (click)="goToPage(totalPages)"><i class="bi bi-chevron-double-right"></i></a>
+    </li>
+  </ul>
+</div>
+
+<div class="modal-footer mt-2 p-2">
+  <div class="row w-100">
+    <div class="col-6">
+      <div class="form-group text-center">
+        <p class="mb-0" style="font-weight: bold;">Mensagens</p>
+        <p class="mb-0" style="font-size: 1.5rem; font-weight: bold;">
+          {{ totalMensagens }}
+        </p>
+      </div>
+    </div>
+    <div class="col-6 text-center">
+      <div class="form-group">
+        <p class="mb-0" style="font-weight: bold;">Oportunidades</p>
+        <p class="mb-0" style="font-size: 1.5rem; font-weight: bold;">
+          {{ totalOportunidades | currency : "R$ "}}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

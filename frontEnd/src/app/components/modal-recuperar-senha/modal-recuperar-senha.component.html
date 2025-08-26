@@ -1,0 +1,65 @@
+<div class="modal fade show d-block" role="dialog" aria-labelledby="currencyModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="currencyModalLabel">Esqueci minha senha</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="handleCancel()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="col-12 col-md-12 form-group">
+            <label for="email" class="form-label">E-mail</label>
+            <input
+              class="form-control"
+              id="email"
+              type="text"
+              [(ngModel)]="email"
+              name="email"
+              placeholder="Informe o seu E-mail"
+              autocomplete="off"
+            >
+          </div>
+          <!-- <div class="row d-flex">
+            <div class="col-12 col-md-12 form-group">
+              <label for="senha" class="form-label">Senha</label>
+              <input
+                class="form-control"
+                id="senha"
+                type="password"
+                [(ngModel)]="cliente.senha"
+                name="senha"
+                placeholder="6 ou mais caracteres"
+                autocomplete="new-password"
+              >
+            </div>
+            <div class="col-12 col-md-6 form-group">
+              <label for="confirmarSenha" class="form-label">Confirmar Senha</label>
+              <input
+                class="form-control"
+                id="confirmarSenha"
+                type="password"
+                [(ngModel)]="confirmarSenha"
+                name="confirmarSenha"
+                placeholder="6 ou mais caracteres"
+                autocomplete="new-password"
+              >
+            </div>
+          </div> -->
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="handleCancel()">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="handleUpdate()">Enviar</button>
+      </div>
+    </div>
+  </div>
+</div>

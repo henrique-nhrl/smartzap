@@ -1,0 +1,9 @@
+<ng-template #itemHeader>
+  <div [innerHtml]="innerHtml"></div>
+</ng-template>
+
+<nz-collapse [nzBordered]="false">
+  <nz-collapse-panel [nzHeader]="itemHeader" [(nzActive)]="expanded" class="bg-transparent">
+    <ng-content></ng-content>
+  </nz-collapse-panel>
+</nz-collapse>

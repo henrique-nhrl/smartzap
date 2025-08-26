@@ -1,0 +1,80 @@
+
+/* Adicione esses estilos ao seu arquivo de estilos global ou ao componente CSS */
+.my-container {
+  max-width: 800px;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 10px;
+}
+.modal-footer {
+  max-width: 800px;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 10px;
+}
+// .navbar {
+//   border-radius: 10px;
+// }
+
+// h2 {
+//   text-align: center;
+// }
+
+.form-group label {
+  font-weight: bold;
+}
+
+.row {
+  margin-bottom: 15px;
+}
+
+// .btn-primary {
+//   background-color: #007bff;
+//   border: none;
+// }
+
+// .btn-primary:hover {
+//   background-color: #0056b3;
+// }
+
+// .btn-danger:hover {
+//   background-color:  #c82333;
+// }
+
+.text-end {
+  text-align: end;
+}
+
+// .text-center {
+//   text-align: center;
+// }
+.custom-textarea {
+  overflow-y: scroll;
+}
+
+.navbar-brand {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 24px; /* Ajuste o tamanho da fonte conforme necessário */
+  color: #009bf4 !important;  /* Ajuste a cor do texto conforme necessário */
+  text-shadow:
+    1px 1px 0 #fff,
+    -1px -1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff;
+}
+
+.btn-margin-left-add {
+  margin-left: 10px; /* Ajuste conforme necessário */
+}
+.btn-margin-right-add {
+  margin-right: 10px;
+}
+.low-mb {
+  margin-bottom: 0rem;
+}
+.check-left {
+  margin-left: 4px;
+}
+.check-left-label {
+  margin-left: 20px;
+}

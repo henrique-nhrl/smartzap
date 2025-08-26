@@ -1,0 +1,25 @@
+ng-table {
+  height: 100%;
+  width: 100%;
+}
+
+ng-table > div {
+  flex-grow: 1;
+}
+
+ng-table > div > .table-responsive {
+  height: 100%;
+}
+
+.table-responsive > table > tbody > tr > td {
+  vertical-align: middle;
+}
+
+.table-responsive > table > thead > tr > th {
+  vertical-align: middle;
+  border-top-color: transparent;
+}
+
+table > thead > tr > th {
+  border-top: 0 !important;
+}
