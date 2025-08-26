@@ -28,9 +28,41 @@ Write-Host "Fazendo build das imagens..." -ForegroundColor Yellow
 docker build -t smartzap-backend:latest ./backEnd
 docker build -t smartzap-frontend:latest ./frontEnd
 
+# Pergunta qual configuração usar
+Write-Host ""
+Write-Host "Escolha a configuração de deploy:" -ForegroundColor Cyan
+Write-Host "1. Com Traefik (recomendado se Traefik estiver rodando)" -ForegroundColor White
+Write-Host "2. Com Nginx direto (portas 8080/8443)" -ForegroundColor White
+Write-Host "3. Sair" -ForegroundColor White
+Write-Host ""
+
+$choice = Read-Host "Digite sua escolha (1-3)"
+
+switch ($choice) {
+    "1" {
+        Write-Host "Deploy com Traefik..." -ForegroundColor Yellow
+        $composeFile = "docker-compose.yml"
+        $accessUrl = "https://app-dev.smartzap.net"
+    }
+    "2" {
+        Write-Host "Deploy com Nginx direto..." -ForegroundColor Yellow
+        $composeFile = "docker-compose-nginx.yml"
+        $accessUrl = "https://localhost:8443"
+    }
+    "3" {
+        Write-Host "Saindo..." -ForegroundColor Yellow
+        exit 0
+    }
+    default {
+        Write-Host "Opção inválida. Usando Traefik por padrão." -ForegroundColor Yellow
+        $composeFile = "docker-compose.yml"
+        $accessUrl = "https://app-dev.smartzap.net"
+    }
+}
+
 # Deploy do stack
-Write-Host "Fazendo deploy do stack..." -ForegroundColor Yellow
-docker stack deploy -c docker-compose.yml smartzap
+Write-Host "Fazendo deploy do stack usando $composeFile..." -ForegroundColor Yellow
+docker stack deploy -c $composeFile smartzap
 
 # Aguarda um pouco para os serviços iniciarem
 Write-Host "Aguardando serviços iniciarem..." -ForegroundColor Yellow
@@ -41,7 +73,7 @@ Write-Host "Status dos serviços:" -ForegroundColor Green
 docker service ls | Select-String "smartzap"
 
 Write-Host "=== Deploy concluído! ===" -ForegroundColor Green
-Write-Host "Acesse: https://app-dev.smartzap.net" -ForegroundColor Cyan
+Write-Host "Acesse: $accessUrl" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "Comandos úteis:" -ForegroundColor Yellow
 Write-Host "  Ver logs: docker service logs smartzap_frontend" -ForegroundColor White

@@ -1,5 +1,23 @@
 # Changelog - SmartZap
 
+## Versão 2.0.1 - Correções Docker Swarm
+
+### Correções de Compatibilidade
+- Removido `container_name` (deprecated no Docker Swarm)
+- Removido `expose` (desnecessário em redes overlay)
+- Removido `ports` do docker-compose.yml principal (usando Traefik)
+- Adicionado labels para Traefik
+- Criado `docker-compose-nginx.yml` para deploy sem Traefik
+
+### Novos Scripts
+- `check-traefik.ps1` - Verifica se o Traefik está rodando
+- `docker-compose-nginx.yml` - Configuração alternativa sem Traefik
+
+### Scripts Atualizados
+- `deploy.sh` e `deploy.ps1` - Agora oferecem opções de deploy
+- Opção 1: Com Traefik (portas 80/443)
+- Opção 2: Com Nginx direto (portas 8080/8443)
+
 ## Versão 2.0.0 - Adaptação para Docker Swarm
 
 ### Alterações Principais
