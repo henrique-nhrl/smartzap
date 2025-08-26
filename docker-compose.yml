@@ -30,5 +30,4 @@ services:
 
 networks:
   smartzap_net:
-    driver: overlay
-    attachable: true
+    external: true
