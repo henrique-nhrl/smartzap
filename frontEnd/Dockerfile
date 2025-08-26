@@ -70,10 +70,6 @@ COPY /etc/letsencrypt/live/app.smartzap.net/fullchain.pem /etc/nginx/fullchain.p
 COPY /etc/letsencrypt/live/app.smartzap.net/privkey.pem /etc/nginx/privkey.pem
 COPY /etc/letsencrypt/options-ssl-nginx.conf /etc/nginx/options-ssl-nginx.conf
 COPY /etc/letsencrypt/ssl-dhparams.pem /etc/nginx/ssl-dhparams.pem
-
-# Certificados para app-dev.smartzap.net
-COPY /etc/nginx/certs/app-dev.smartzap.net/fullchain.pem /etc/nginx/certs/app-dev.smartzap.net/fullchain.pem
-COPY /etc/nginx/certs/app-dev.smartzap.net/privkey.pem /etc/nginx/certs/app-dev.smartzap.net/privkey.pem
 # Expõe a porta 80
 EXPOSE 80
 
