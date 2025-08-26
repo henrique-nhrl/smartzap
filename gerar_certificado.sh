@@ -2,9 +2,10 @@
 
 echo "=== Gerando certificado para app-dev.smartzap.net ==="
 
-# 1. Parar os containers
-echo "1. Parando containers..."
-docker-compose down
+# 1. Parar os serviços do Swarm
+echo "1. Parando serviços do Swarm..."
+docker stack rm smartzap 2>/dev/null || true
+sleep 10
 
 # 2. Criar diretório para certificados
 echo "2. Criando diretório para certificados..."
@@ -27,12 +28,16 @@ if [ -f "frontEnd/etc/letsencrypt/live/app-dev.smartzap.net/fullchain.pem" ]; th
     # 6. Reconstruir a imagem Docker
     echo "6. Reconstruindo imagem Docker..."
     cd frontEnd
-    docker build -t frontend:prod-v1.0.1 .
+    docker build -t frontend:latest .
     cd ..
     
-    # 7. Reiniciar containers
-    echo "7. Reiniciando containers..."
-    docker-compose up -d
+    # 7. Fazer push da imagem para o registry (se necessário)
+    echo "7. Fazendo push da imagem..."
+    docker push frontend:latest 2>/dev/null || echo "Push ignorado (imagem local)"
+    
+    # 8. Deploy no Swarm
+    echo "8. Fazendo deploy no Swarm..."
+    docker stack deploy -c docker-compose.yml smartzap
     
     echo "=== Concluído! ==="
     echo "Acesse: https://app-dev.smartzap.net"

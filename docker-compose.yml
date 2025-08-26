@@ -2,31 +2,33 @@ version: '3.8'
 
 services:
   frontend:
-    image: frontend:prod-v1.0.1
-    container_name: frontend_container
+    image: frontend:latest
     networks:
       - smartzap_net
     ports:
-      - "80:80"       # Mapeia a porta 80 do contêiner para a porta 80 do host
-      - "443:443"     # Mapeia a porta 443 do contêiner para a porta 443 do host
+      - "80:80"
+      - "443:443"
     depends_on:
-      - backend       # Garante que o backend seja iniciado antes do frontend
-    #volumes:
-    #  - ./nginx.conf:/etc/nginx/conf.d/default.conf  # Mapeia o nginx.conf do host para o contêiner
-    #  - ./certs:/etc/nginx/certs                      # Mapeia os certificados SSL, se necessário
+      - backend
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
 
   backend:
-    image: backend:prod-v1.0.1
-    container_name: backend_container
+    image: backend:latest
     networks:
       - smartzap_net
-    #environment:
-    #  - DATABASE_URL=mysql://user:password@db:3306/dbname  # Exemplo de variáveis de ambiente (ajuste conforme necessário)
-    expose:
-      - "4000"       # Expõe a porta 4000 apenas para outros serviços no Docker (não para o host)
-    #volumes:
-    #  - ./data:/var/lib/backend/data  # Exemplo de volume para dados persistentes (ajuste conforme necessário)
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
 
 networks:
   smartzap_net:
-    driver: bridge
+    driver: overlay
+    attachable: true
