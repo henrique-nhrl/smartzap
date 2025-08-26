@@ -66,12 +66,12 @@ ENV LANG=pt_BR.UTF-8 \
 # Copia o código compilado e a configuração do nginx para a pasta correta
 COPY --from=build /dist/src/app/dist/client-app /usr/share/nginx/html
 COPY /nginx.conf /etc/nginx/conf.d/default.conf
-COPY /etc/letsencrypt/live/app.smartzap.net/fullchain.pem /etc/nginx/fullchain.pem
-COPY /etc/letsencrypt/live/app.smartzap.net/privkey.pem /etc/nginx/privkey.pem
-COPY /etc/letsencrypt/options-ssl-nginx.conf /etc/nginx/options-ssl-nginx.conf
-COPY /etc/letsencrypt/ssl-dhparams.pem /etc/nginx/ssl-dhparams.pem
-# Expõe a porta 80
-EXPOSE 80
+
+# Cria diretório para certificados
+RUN mkdir -p /etc/nginx/certs
+
+# Expõe as portas 80 e 443
+EXPOSE 80 443
 
 # Comando para iniciar o Nginx
 CMD ["nginx", "-g", "daemon off;"]

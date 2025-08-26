@@ -6,8 +6,8 @@ export const environment = {
   production: false,
   apiDomain: 'localhost:4000',
   apiUrl: 'http://localhost:4000/api',
-  externalApiUrl: 'http://5.161.236.185:8080',
-  //externalApiUrl: 'https://evapi2.smartzap.net',
+  externalApiUrl: 'http://evoapi2-dev.smartzap.net',
+  //externalApiUrl: 'https://evoapi2-dev.smartzap.net',
   defaultApiKey: '0417bf43b0a8969bd6685bcb49dhkcDP'
 };
 
