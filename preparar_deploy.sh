@@ -2,14 +2,22 @@
 
 echo "=== Preparando ambiente para deploy com Traefik ==="
 
-# 1. Criar as redes do Swarm
-echo "1. Criando redes..."
-docker network create -d overlay --attachable smartzap_net 2>/dev/null || echo "Rede smartzap_net já existe"
-docker network create -d overlay --attachable traefik_network 2>/dev/null || echo "Rede traefik_network já existe"
+# 1. Detectar a rede do Traefik
+echo "1. Detectando rede do Traefik..."
+TRAEFIK_NETWORK=$(docker network ls --format "{{.Name}}" | grep -i traefik | head -1)
 
-# 2. Conectar ao Traefik (se existir)
-echo "2. Conectando ao Traefik..."
-docker network connect traefik_network $(docker ps -q --filter "name=traefik") 2>/dev/null || echo "Traefik não encontrado ou já conectado"
+if [ -z "$TRAEFIK_NETWORK" ]; then
+    echo "ERRO: Rede do Traefik não encontrada!"
+    echo "Redes disponíveis:"
+    docker network ls
+    exit 1
+fi
+
+echo "Rede do Traefik encontrada: $TRAEFIK_NETWORK"
+
+# 2. Criar a rede do Swarm
+echo "2. Criando rede smartzap_net..."
+docker network create -d overlay --attachable smartzap_net 2>/dev/null || echo "Rede smartzap_net já existe"
 
 # 3. Build das imagens
 echo "3. Fazendo build das imagens..."
@@ -19,8 +27,12 @@ cd ../backEnd
 docker build -t backend:latest .
 cd ..
 
-# 4. Deploy no Swarm
-echo "4. Fazendo deploy no Swarm..."
+# 4. Atualizar docker-compose.yml com a rede correta
+echo "4. Atualizando docker-compose.yml..."
+sed -i "s/traefik_network/$TRAEFIK_NETWORK/g" docker-compose.yml
+
+# 5. Deploy no Swarm
+echo "5. Fazendo deploy no Swarm..."
 docker stack deploy -c docker-compose.yml smartzap
 
 echo "=== Deploy concluído! ==="
