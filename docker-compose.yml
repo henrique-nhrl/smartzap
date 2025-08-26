@@ -2,12 +2,12 @@ version: '3.8'
 
 services:
   frontend:
-    image: frontend:latest
+    image: frontend:prod-v1.0.1
     networks:
       - smartzap_net
     ports:
-      - "8080:80"
-      - "8443:443"
+      - "80:80"
+      - "443:443"
     depends_on:
       - backend
     deploy:
@@ -18,7 +18,7 @@ services:
         max_attempts: 3
 
   backend:
-    image: backend:latest
+    image: backend:prod-v1.0.1
     networks:
       - smartzap_net
     deploy:
@@ -30,4 +30,5 @@ services:
 
 networks:
   smartzap_net:
-    external: true
+    driver: overlay
+    attachable: true

@@ -28,12 +28,12 @@ if [ -f "frontEnd/etc/letsencrypt/live/app-dev.smartzap.net/fullchain.pem" ]; th
     # 6. Reconstruir a imagem Docker
     echo "6. Reconstruindo imagem Docker..."
     cd frontEnd
-    docker build -t frontend:latest .
+    docker build -t frontend:prod-v1.0.1 .
     cd ..
     
     # 7. Fazer push da imagem para o registry (se necessário)
     echo "7. Fazendo push da imagem..."
-    docker push frontend:latest 2>/dev/null || echo "Push ignorado (imagem local)"
+    docker push frontend:prod-v1.0.1 2>/dev/null || echo "Push ignorado (imagem local)"
     
     # 8. Deploy no Swarm
     echo "8. Fazendo deploy no Swarm..."
